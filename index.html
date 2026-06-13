@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man: DSA & AI Exhibition Edition</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- Floating controls (Overlay elements on top right) -->
+        <div class="float-controls">
+            <div class="dsa-widget">
+                <input type="checkbox" id="dsa-toggle">
+                <label for="dsa-toggle">DSA Overlay</label>
+            </div>
+            <button id="mute-btn" class="control-btn" title="Toggle Sound">🔊</button>
+            <button id="credits-btn" class="control-btn" title="Technical Details">ℹ️</button>
+        </div>
+
+        <!-- Game HUD Panel -->
+        <div id="hud">
+            <div class="hud-top">
+                <div class="hud-title-wrap">
+                    <span class="hud-title">PAC-MAN</span>
+                    <span class="hud-subtitle">DSA EDITION</span>
+                </div>
+                <!-- Lives visual indicator -->
+                <div id="lives-container">
+                    <!-- Javascript populates this -->
+                </div>
+            </div>
+            <div class="hud-bottom">
+                <div class="hud-stats-grid">
+                    <div class="hud-card">
+                        <span class="hud-label">SCORE</span>
+                        <span id="score-val" class="hud-value">0</span>
+                    </div>
+                    <div class="hud-card">
+                        <span class="hud-label">HIGH SCORE</span>
+                        <span id="highscore-val" class="hud-value">0</span>
+                    </div>
+                    <div class="hud-card">
+                        <span class="hud-label">TIME LIMIT</span>
+                        <span id="timer-val" class="hud-value">120s</span>
+                    </div>
+                    <div class="hud-card">
+                        <span class="hud-label">LEVEL</span>
+                        <span id="level-val" class="hud-value">EASY</span>
+                    </div>
+                </div>
+            </div>
+            <div id="frightened-bar" class="hidden">
+                <div id="frightened-fill"></div>
+            </div>
+        </div>
+
+        <!-- Main Interactive Canvas Wrapper -->
+        <div class="canvas-wrapper">
+            <canvas id="game-canvas" width="570" height="510"></canvas>
+
+            <!-- Menu Screen Overlay (Start Menu) -->
+            <div id="start-screen" class="screen-overlay">
+                <div class="menu-panel">
+                    <h1 class="panel-title">PAC-MAN CHASE</h1>
+                    <p class="panel-subtitle">Pathfinding Graph AI Showcase</p>
+                    
+                    <div class="difficulty-selector">
+                        <button class="diff-btn active" data-diff="Easy">EASY</button>
+                        <button class="diff-btn" data-diff="Medium">MEDIUM</button>
+                        <button class="diff-btn" data-diff="Hard">HARD</button>
+                    </div>
+
+                    <button id="start-game-btn" class="action-btn">Press SPACE to Start</button>
+
+                    <!-- Leaderboard Display -->
+                    <div class="leaderboard-container">
+                        <h2 class="leaderboard-title">Local Leaderboard</h2>
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Level</th>
+                                    <th class="text-right">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body">
+                                <!-- Javascript populates rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endgame Metrics Screen Overlay -->
+            <div id="stats-screen" class="screen-overlay hidden">
+                <div class="menu-panel">
+                    <h1 id="stats-title" class="panel-title">GAME OVER</h1>
+                    <p class="panel-subtitle">Performance Analytics Summary</p>
+
+                    <!-- Metric Widgets Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-widget">
+                            <div class="hud-label">FINAL SCORE</div>
+                            <div id="stat-score" class="stat-val">0</div>
+                        </div>
+                        <div class="stat-widget">
+                            <div class="hud-label">SURVIVED</div>
+                            <div id="stat-time" class="stat-val">0s</div>
+                        </div>
+                        <div class="stat-widget">
+                            <div class="hud-label">PELLETS CONSUMED</div>
+                            <div id="stat-pellets" class="stat-val">0%</div>
+                        </div>
+                        <div class="stat-widget">
+                            <div class="hud-label">GHOSTS DEFEATED</div>
+                            <div id="stat-ghosts" class="stat-val">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Keypress Accuracy Widget -->
+                    <div class="stat-widget" style="margin-bottom: 18px;">
+                        <div class="hud-label">KEY STROKE EFFICIENCY</div>
+                        <div id="stat-accuracy" class="stat-val">0%</div>
+                        <div style="font-size: 8px; color: var(--text-muted); margin-top: 2px;">
+                            Ratio of direction changes that resulted in movement.
+                        </div>
+                    </div>
+
+                    <!-- Save High Score name field -->
+                    <div class="name-save-block">
+                        <input type="text" id="player-name-input" placeholder="Enter name" maxlength="12">
+                        <button id="save-score-btn" class="save-btn">Save Score</button>
+                    </div>
+
+                    <!-- Achievements Dashboard -->
+                    <div class="badges-title">Achievements Earned</div>
+                    <div id="badge-container" class="badge-container">
+                        <!-- Badges dynamically added here -->
+                    </div>
+
+                    <button id="restart-btn" class="action-btn">Return to Menu</button>
+                </div>
+            </div>
+
+            <!-- Slide-out Technical Documentation Sidebar -->
+            <div id="credits-panel" class="side-panel">
+                <button id="close-credits" class="close-btn">Close ✕</button>
+                <h3 style="margin-top: 10px;">DSA Core Concepts</h3>
+                <p><strong>Graph Node Conversion:</strong> The walkable grid cells are parsed and modeled as vertices in a graph structure. Wall blocks are omitted.</p>
+                <p><strong>BFS pathfinding:</strong> Blinky, Pinky, Inky, and Clyde utilize Breadth-First Search (BFS) to find shortest path sequences. Visited lists and parent backtracking maps operate in real-time.</p>
+                
+                <h3>Ghost Personalities</h3>
+                <ul>
+                    <li><strong>Blinky (Red):</strong> Pathfinds directly to Pac-Man's coordinates (direct chaser).</li>
+                    <li><strong>Pinky (Pink):</strong> Pathfinds to 4 cells ahead of Pac-Man (ambush interceptor).</li>
+                    <li><strong>Inky (Cyan):</strong> Calculates flanking vector based on Blinky and Pac-Man's vector projection.</li>
+                    <li><strong>Clyde (Orange):</strong> Runs BFS to Pac-Man when > 8 cells away; otherwise flees back to Clyde's bottom-left scatter target.</li>
+                </ul>
+
+                <h3>Visual Render & Audio</h3>
+                <p><strong>Engine Architecture:</strong> Model-View-Controller design pattern separates mathematical physics loop from drawing and HTML5 canvas layers.</p>
+                <p><strong>Web Audio:</strong> Sound effects are synthesized on-the-fly inside the client browser using raw oscillator waves.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application script mounting -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
