@@ -6,29 +6,43 @@ An aesthetic, dual-implementation showcase of classic Pac-Man utilizing Graph Da
 
 ---
 
+## 🎮 Game Showcase
+
+| Start Menu | Active Gameplay | Graph DSA Overlay |
+| :---: | :---: | :---: |
+| ![Start Menu](web/screenshots/start_menu.png) | ![Active Gameplay](web/screenshots/gameplay.png) | ![DSA Overlay](web/screenshots/dsa_overlay.png) |
+
+---
+
 ## 📂 Repository Architecture
 
 ```text
-├── pacman.py                # Python Tkinter desktop implementation
-├── test_pacman.py           # Unit tests validating python levels and graph logic
-├── index.html               # Web interface page mount
-├── css/
-│   └── styles.css           # Premium styles (dark theme, glassmorphism, side panels)
-└── js/                      # JS MVC Architecture
-    ├── main.js              # Application bootstrapper
-    ├── data/
-    │   └── maze.js          # Grid array definition shared by actors
-    ├── engine/
-    │   ├── game.js          # Central gameloop thread, collision handling, rules
-    │   ├── graph.js         # BFS pathfinder and grid-to-graph builder
-    │   └── state.js         # Global reactable score, time, levels, performance tracking
-    ├── entities/
-    │   ├── ghost.js         # Ghost targeting configurations (Blinky, Pinky, Inky, Clyde)
-    │   └── pacman.js        # Pac-Man control direction buffer & movement
-    └── view/
-        ├── audio.js         # On-the-fly oscillator synthesized sound waves
-        ├── renderer.js      # HTML5 Canvas visual renderer (draws grid, actors, DSA overlay)
-        └── ui.js            # HUD updates, Achievements overlay, Local Leaderboards
+├── desktop/
+│   ├── pacman.py            # Python Tkinter desktop implementation
+│   └── test_pacman.py       # Unit tests validating python levels and graph logic
+└── web/
+    ├── index.html           # Web interface page mount
+    ├── css/
+    │   └── styles.css       # Premium styles (dark theme, glassmorphism, side panels)
+    ├── screenshots/         # Game showcase screenshots
+    │   ├── start_menu.png
+    │   ├── gameplay.png
+    │   └── dsa_overlay.png
+    └── js/                  # JS MVC Architecture
+        ├── main.js          # Application bootstrapper
+        ├── data/
+        │   └── maze.js      # Grid array definition shared by actors
+        ├── engine/
+        │   ├── game.js      # Central gameloop thread, collision handling, rules
+        │   ├── graph.js     # BFS pathfinder and grid-to-graph builder
+        │   └── state.js     # Global reactable score, time, levels, performance tracking
+        ├── entities/
+        │   ├── ghost.js     # Ghost targeting configurations (Blinky, Pinky, Inky, Clyde)
+        │   └── pacman.js    # Pac-Man control direction buffer & movement
+        └── view/
+            ├── audio.js     # On-the-fly oscillator synthesized sound waves
+            ├── renderer.js  # HTML5 Canvas visual renderer (draws grid, actors, DSA overlay)
+            └── ui.js        # HUD updates, Achievements overlay, Local Leaderboards
 ```
 
 ---
@@ -56,9 +70,9 @@ A desktop-native application utilizing Python's built-in `tkinter` graphics wrap
 1. Open a terminal/PowerShell in this directory.
 2. Launch the script using Python:
    ```powershell
-   python pacman.py
+   python desktop/pacman.py
    ```
-   *(If `python` is not recognized, try `py pacman.py`)*
+   *(If `python` is not recognized, try `py desktop/pacman.py`)*
 
 ### Controls & Navigation
 - **Arrow Keys** or **WASD**: Move Pac-Man.
@@ -104,5 +118,5 @@ Then navigate to the URL printed in the terminal (usually `http://127.0.0.1:8080
 
 To run the suite of automated tests verifying the Python graph model, layout constraints, and level parameters, execute:
 ```powershell
-python -m unittest test_pacman.py
+python -m unittest desktop/test_pacman.py
 ```

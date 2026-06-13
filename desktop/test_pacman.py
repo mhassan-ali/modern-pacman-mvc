@@ -1,4 +1,8 @@
+import os
+import sys
 import unittest
+
+sys.path.insert(0, os.path.dirname(__file__))
 
 from pacman import LEVELS, MAZE, MazeGraph
 
