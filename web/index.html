@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pac-Man: DSA & AI Exhibition Edition</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
     <div class="game-container">
         <!-- Floating controls (Overlay elements on top right) -->
-        <div class="float-controls">
+        <div class="float-controls"> <!--float controls-->
             <div class="dsa-widget">
                 <input type="checkbox" id="dsa-toggle">
                 <label for="dsa-toggle">DSA Overlay</label>
@@ -65,7 +67,7 @@
                 <div class="menu-panel">
                     <h1 class="panel-title">PAC-MAN CHASE</h1>
                     <p class="panel-subtitle">Pathfinding Graph AI Showcase</p>
-                    
+
                     <div class="difficulty-selector">
                         <button class="diff-btn active" data-diff="Easy">EASY</button>
                         <button class="diff-btn" data-diff="Medium">MEDIUM</button>
@@ -149,20 +151,27 @@
             <div id="credits-panel" class="side-panel">
                 <button id="close-credits" class="close-btn">Close ✕</button>
                 <h3 style="margin-top: 10px;">DSA Core Concepts</h3>
-                <p><strong>Graph Node Conversion:</strong> The walkable grid cells are parsed and modeled as vertices in a graph structure. Wall blocks are omitted.</p>
-                <p><strong>BFS pathfinding:</strong> Blinky, Pinky, Inky, and Clyde utilize Breadth-First Search (BFS) to find shortest path sequences. Visited lists and parent backtracking maps operate in real-time.</p>
-                
+                <p><strong>Graph Node Conversion:</strong> The walkable grid cells are parsed and modeled as vertices in
+                    a graph structure. Wall blocks are omitted.</p>
+                <p><strong>BFS pathfinding:</strong> Blinky, Pinky, Inky, and Clyde utilize Breadth-First Search (BFS)
+                    to find shortest path sequences. Visited lists and parent backtracking maps operate in real-time.
+                </p>
+
                 <h3>Ghost Personalities</h3>
                 <ul>
                     <li><strong>Blinky (Red):</strong> Pathfinds directly to Pac-Man's coordinates (direct chaser).</li>
                     <li><strong>Pinky (Pink):</strong> Pathfinds to 4 cells ahead of Pac-Man (ambush interceptor).</li>
-                    <li><strong>Inky (Cyan):</strong> Calculates flanking vector based on Blinky and Pac-Man's vector projection.</li>
-                    <li><strong>Clyde (Orange):</strong> Runs BFS to Pac-Man when > 8 cells away; otherwise flees back to Clyde's bottom-left scatter target.</li>
+                    <li><strong>Inky (Cyan):</strong> Calculates flanking vector based on Blinky and Pac-Man's vector
+                        projection.</li>
+                    <li><strong>Clyde (Orange):</strong> Runs BFS to Pac-Man when > 8 cells away; otherwise flees back
+                        to Clyde's bottom-left scatter target.</li>
                 </ul>
 
                 <h3>Visual Render & Audio</h3>
-                <p><strong>Engine Architecture:</strong> Model-View-Controller design pattern separates mathematical physics loop from drawing and HTML5 canvas layers.</p>
-                <p><strong>Web Audio:</strong> Sound effects are synthesized on-the-fly inside the client browser using raw oscillator waves.</p>
+                <p><strong>Engine Architecture:</strong> Model-View-Controller design pattern separates mathematical
+                    physics loop from drawing and HTML5 canvas layers.</p>
+                <p><strong>Web Audio:</strong> Sound effects are synthesized on-the-fly inside the client browser using
+                    raw oscillator waves.</p>
             </div>
         </div>
     </div>
@@ -170,4 +179,5 @@
     <!-- Application script mounting -->
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>
